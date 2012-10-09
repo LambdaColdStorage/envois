@@ -2,3 +2,56 @@ lambdavoice
 ===========
 
 Automated invoicing by Lambda Labs, Inc.
+
+## Example 
+
+```bash
+./invoice invoice.json
+```
+
+### Example invoice file
+
+```json
+{
+    "seller": {
+        "name": "Lambda Labs, Inc.",
+        "address": "857 Clay St. Suite 206",
+        "city": "San Francisco",
+        "state": "CA",
+        "zip": "94108",
+        "account": {
+            "swift": "...",
+            "number": "...",
+            "name": "Lambda Labs Inc.",
+            "same_address": true
+        }
+    },
+    "buyer": {
+        "name": "Foo Corp",
+        "address": "88 Foo Road, Foo Place",
+        "city": "Fooville",
+        "state": "BA",
+        "zip": "31337"
+    },
+    "logo": "http://lambdal.com/images/lambda-labs-logo.png",
+    "billing_shipping_same":,
+    "items": [
+        {
+            "desc": "Facial Detection & Landmark Recognition Perpetual License",
+            "qty": 1,
+            "unit_price": 32768
+        }
+    ],
+    "terms": 30
+}
+```
+
+## Generated invoice contents
+
+- Your company's logo
+- Your company's address
+- Your company's billing information
+- Invoice date
+- Invoice number
+- Description and qty of goods
+- Terms: NET X DAYS "INTEREST CHARGE ASSESSED ON BALANCES OVER X DAYS"
