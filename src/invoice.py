@@ -2,21 +2,32 @@
 # -*- coding: utf-8 -*-
 import sys
 import json
+from contextable import Contextable
+from terms import Terms
+from item import Item, ItemCollection
 from company import Company
 from account import Account
 from address import Address
-from jinja import Template, Context, FileSystemLoader
+import jinja2
+from hashlib import sha1
+import datetime
+tenv = jinja2.Environment(loader=jinja2.FileSystemLoader(['./templates']))
+def generate_id(n1, n2, LIMIT=10):
+    return sha1('$'.join([n1, n2, str(datetime.datetime.utcnow())])).hexdigest().upper()[:LIMIT]
 
-class Invoice(object):
-    def __init__(self, buyer, seller, items, terms):
+class Invoice(Contextable):
+    def __init__(self, buyer, seller, items, terms, **kwargs):
         assert(isinstance(buyer, Company))
         assert(isinstance(seller, Company))
-        assert(not(isinstance(items, basestring)))
         assert(isinstance(terms, Terms))
         self.buyer = buyer
         self.seller = seller
         self.items = items
         self.terms = terms
+        self.invoice_id = generate_id(self.buyer.name, self.seller.name)
+        self.date_of_purchase = kwargs.get('date_of_purchase', '')
+        self.purchase_order_no = kwargs.get('purchase_order_no', '')
+        self.job_no = kwargs.get('job_no', '')
 
     def __repr__(self):
         return "<Invoice: %s, %s>" % (repr(buyer), repr(seller))
@@ -25,26 +36,35 @@ class Invoice(object):
         """
         self -> HTML
         """
-        t = Template('invoice', FileSystemLoader('templates'))
-        c = Context(self.context())
-        html = t.render(c)
-        print(html)
+        temp = tenv.get_template('invoice.html')
+        html = temp.render(self.context())
+        return html
 
     def context(self):
         """
         self -> { variables to be included in template }
         """
-        return merge_dict(self.buyer.context(), self.seller.context(), self.items.context(), self.terms.context())
+        c = merge_dict(self.buyer.context(), self.seller.context(), self.items.context(), self.terms.context())
+        c['invoice_id'] = self.invoice_id
+        c['title'] = self.seller.name
+        c['date_of_purchase'] = self.date_of_purchase
+        c['purchase_order_no'] = self.purchase_order_no
+        c['job_no'] = self.job_no
+        return c
 
 def merge_dict(*dicts):
-    return dict(reduce(lambda a,b: a+b, dicts.items()))
+    return dict(sum([d.items() for d in dicts], []))
 
 def make_invoice(json_object):
-    buyer = Company(**json_object['buyer'])
-    seller = Company(**json_object['seller'])
-    seller = json_object['items']
-    seller = json_object['terms']
-    invoice = Invoice(buyer, seller, items, terms)
+    buyer = Company('buyer', **json_object['buyer'])
+    seller = Company('seller', **json_object['seller'])
+    items = ItemCollection(json_object['items'])
+    terms = Terms(**json_object['terms'])
+    del json_object['terms']
+    del json_object['items']
+    del json_object['seller']
+    del json_object['buyer']
+    invoice = Invoice(buyer, seller, items, terms, **json_object)
     return invoice.html()
 
 def main(inp):

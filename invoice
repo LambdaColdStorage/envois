@@ -1,7 +1,7 @@
 #!/bin/bash
 function create_invoice {
     input=$1
-    echo "# Creating invoice with $input";
+    echo "# Creating invoice with $input" >&2
     python src/invoice.py < $input
 }
 
@@ -9,7 +9,7 @@ INPUT=$1
 if [[ $1 ]]; then
     INPUT=$1;
 else
-    echo "No input file provided.";
+    echo "No input file provided." >&2;
     exit 1;
 fi;
 

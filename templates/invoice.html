@@ -2,30 +2,50 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>{% title %}</title>
+    <title>{{ title }}</title>
+    <link href="../css/invoice.css" rel="stylesheet" />
 </head>
 <body>
-    <h1>{% title %}</h1> 
-    <table>
+    <div class="invoice-info">
+        Invoice ID: {{ invoice_id }}
+    </div>
+    <img src="{{ seller.logo }}" alt="{{ seller.name }}" class="seller_logo" id="top-logo" />
+    <h2 id="seller-title">{{ title }}</h2> 
+    {{ seller.address }}
+    <div class="client">
+        <p>Bill to:</p>
+        <h2>{{ buyer.name }}</h2>
+        {{ buyer.address }}
+    </div>
+    <dl class="purchase-info">
+        <dd>Date of Purchase:</dd>
+        <dt>{{ date_of_purchase }}</dt>
+        <dd>Purchase  Order No.:</dd>
+        <dt>{{ purchase_order_no }}</dt>
+        <dd>Job No.:</dd>
+        <dt>{{ job_no }}</dt>
+    </dl>
+    <table class="items">
         <thead>
-            <tr>
-            {% for attr in item.attribute_keys %}
-                <th>{{ attr }}</th>
-            {% endfor %}
+            <tr>{% for attr in attribute_keys %} 
+                <th>{{ attr }}</th>{% endfor %}
             </tr>
         </thead>
-        <tbody>
-            {% for item in items %}
-            <tr>
-                {% for val in item.vals %}
-                <td>{{ val }}</td>
-                {% endfor %}
-            </tr>
-            {% endfor %}
+        <tbody>{% for item in items %}
+            <tr>{% for val in item.vals %}
+                <td>{{ item[val] }}</td>{% endfor %}
+            </tr>{% endfor %}
         </tbody>
-        <tfoot>
-            ${{ total }}
+        <tfoot class="align-right">
+            <tr>
+                <td colspan="{{ attribute_keys|length }}"><strong class="total-due">TOTAL DUE:</strong> {{ total }}</td>
+            </tr>
         </tfoot>
     </table>
+    <div class="align-center">TERMS: {{ terms.string }}</div>
+    <div class="remittance-info">
+        <strong>PLEASE REMIT PAYMENT BY WIRE TRANSFER TO:</strong>
+        {{ seller.account }}
+    </div>
 </body>
 </html>
