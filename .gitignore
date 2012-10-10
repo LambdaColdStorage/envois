@@ -27,3 +27,4 @@ pip-log.txt
 .mr.developer.cfg
 input/lambda_bluehive_2012-10-09.json
 *.sw[a-z]
+output/lbh.html

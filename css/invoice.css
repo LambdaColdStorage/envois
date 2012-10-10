@@ -55,10 +55,17 @@ table.items {
     margin: 1em 0;
 }
 
+table.items th, table.items td {
+    padding: 1em 0 1em 0;
+}
+
 .font-bold {
     font-weight: bold;
 }
 
+table.items thead th { 
+    border-bottom: 1px solid #333;
+}
 table.items thead { 
    text-align: left; 
 }

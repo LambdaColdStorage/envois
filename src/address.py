@@ -22,4 +22,4 @@ class Address(Contextable):
         %s<br/>
         %s, %s %s<br/>
         %s<br/>
-        %s</div>""" % (self.street, self.city, self.state, self.zipcode, self.phone, self.email)
+        <a href="mailto:%s">%s</a></div>""" % (self.street, self.city, self.state, self.zipcode, self.phone, self.email, self.email)
