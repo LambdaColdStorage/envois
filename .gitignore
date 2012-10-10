@@ -25,3 +25,5 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+input/lambda_bluehive_2012-10-09.json
+*.sw[a-z]

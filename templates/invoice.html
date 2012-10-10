@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>{% title %}</title>
+</head>
+<body>
+    <h1>{% title %}</h1> 
+    <table>
+        <thead>
+            <tr>
+            {% for attr in item.attribute_keys %}
+                <th>{{ attr }}</th>
+            {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                {% for val in item.vals %}
+                <td>{{ val }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            ${{ total }}
+        </tfoot>
+    </table>
+</body>
+</html>
