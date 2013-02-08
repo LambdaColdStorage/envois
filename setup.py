@@ -16,6 +16,7 @@ setup(
     author_email='stephen@stephenbalaban.com',
     packages=[
         'envois',
+        'test',
         ],
     data_files = [
         ('templates', ['invoice.html']),
