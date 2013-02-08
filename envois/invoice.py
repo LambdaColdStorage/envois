@@ -11,7 +11,10 @@ from address import Address
 import jinja2
 from hashlib import sha1
 import datetime
-tenv = jinja2.Environment(loader=jinja2.FileSystemLoader(['../templates']))
+import os
+
+path = '/'.join(os.path.abspath(__file__).split('/')[:-2])
+tenv = jinja2.Environment(loader=jinja2.FileSystemLoader([path + '/templates']))
 
 def generate_id(n1, n2, LIMIT=10):
     return sha1('$'.join([n1, n2, str(datetime.datetime.utcnow())])).hexdigest().upper()[:LIMIT]
