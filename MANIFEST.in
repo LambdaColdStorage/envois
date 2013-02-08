@@ -1,0 +1,3 @@
+include README.md
+include templates/invoice.html
+include css/invoice.css
