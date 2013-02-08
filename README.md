@@ -9,6 +9,9 @@ Automated invoicing by Lambda Labs, Inc.
 ./invoice invoice.json
 ```
 
+Open the resulting HTML in a browser, save it as a PDF, give it to the people
+who owe you money.
+
 ### Example invoice file
 
 ```json
