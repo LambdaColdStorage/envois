@@ -11,7 +11,8 @@ from address import Address
 import jinja2
 from hashlib import sha1
 import datetime
-tenv = jinja2.Environment(loader=jinja2.FileSystemLoader(['./templates']))
+tenv = jinja2.Environment(loader=jinja2.FileSystemLoader(['../templates']))
+
 def generate_id(n1, n2, LIMIT=10):
     return sha1('$'.join([n1, n2, str(datetime.datetime.utcnow())])).hexdigest().upper()[:LIMIT]
 
@@ -55,15 +56,11 @@ class Invoice(Contextable):
 def merge_dict(*dicts):
     return dict(sum([d.items() for d in dicts], []))
 
-def make_invoice(json_object):
-    buyer = Company('buyer', **json_object['buyer'])
-    seller = Company('seller', **json_object['seller'])
-    items = ItemCollection(json_object['items'])
-    terms = Terms(**json_object['terms'])
-    del json_object['terms']
-    del json_object['items']
-    del json_object['seller']
-    del json_object['buyer']
+def make_invoice(json_object):    
+    buyer, seller = [Company(party, **json_object.pop(party)) \
+                         for party in ['buyer', 'seller']]    
+    terms = Terms(**json_object.pop('terms'))
+    items = ItemCollection(json_object.pop('items'))
     invoice = Invoice(buyer, seller, items, terms, **json_object)
     return invoice.html()
 

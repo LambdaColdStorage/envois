@@ -4,7 +4,7 @@
 from contextable import Contextable
 from numbers import Number
 import locale
-locale.setlocale(locale.LC_ALL, 'en_US')
+#locale.setlocale(locale.LC_ALL, 'en_US')
 
 SYMBOL = {
     'USD': "$"

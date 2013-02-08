@@ -21,7 +21,7 @@ class Company(Contextable):
 
     def context(self):
         """
-        self -> { variables to be included in template }
+        self -> { variaibles to be included in template }
         """
         return {
             self.role: {
