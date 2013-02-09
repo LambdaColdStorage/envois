@@ -1,0 +1,14 @@
+#!/usr/bin/python
+#-*- coding: utf-8 -*-
+
+import argparse
+from envois import invoice
+import json
+
+parser = argparse.ArgumentParser(description="Automated invoicing by Lambda Labs, Inc.")
+parser.add_argument('json', nargs='?', metavar='<json>',
+                    help="Enter the path of the input json file")
+args = parser.parse_args()
+if not args.json:
+   raise ValueError("No .json input file provided")
+print invoice.main(open(args.json, 'r'))

@@ -1,5 +1,5 @@
-lambdavoice
-===========
+envois
+======
 
 Automated invoicing by Lambda Labs, Inc.
 
@@ -18,10 +18,12 @@ who owe you money.
 {
     "seller": {
         "name": "Lambda Labs, Inc.",
-        "address": "857 Clay St. Suite 206",
-        "city": "San Francisco",
-        "state": "CA",
-        "zip": "94108",
+        "address": {
+            "street": "857 Clay St. Suite 206",
+            "city": "San Francisco",
+            "state": "CA",
+            "zip": "94108"
+        },
         "account": {
             "swift": "...",
             "number": "...",
@@ -31,21 +33,25 @@ who owe you money.
     },
     "buyer": {
         "name": "Foo Corp",
-        "address": "88 Foo Road, Foo Place",
-        "city": "Fooville",
-        "state": "BA",
-        "zip": "31337"
+        "address": {
+            "street": "88 Foo Road, Foo Place",
+            "city": "Fooville",
+            "state": "BA",
+            "zip": "31337"
+        },
+        "logo": "http://lambdal.com/images/lambda-labs-logo.png"
     },
-    "logo": "http://lambdal.com/images/lambda-labs-logo.png",
-    "billing_shipping_same":,
     "items": [
         {
-            "desc": "Facial Detection & Landmark Recognition Perpetual License",
+            "description": "Facial Detection & Landmark Recognition Perpetual License",
             "qty": 1,
             "unit_price": 32768
         }
     ],
-    "terms": 30
+    "terms": {
+        "days": 30,
+        "string": ""
+    }
 }
 ```
 
