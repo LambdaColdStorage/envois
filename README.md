@@ -22,7 +22,9 @@ who owe you money.
             "street": "857 Clay St. Suite 206",
             "city": "San Francisco",
             "state": "CA",
-            "zip": "94108"
+            "zip": "94108",
+	    "email": "some@email.com",
+	    "phone": "(555) 555-5555"
         },
         "account": {
             "swift": "...",
@@ -45,7 +47,7 @@ who owe you money.
         {
             "description": "Facial Detection & Landmark Recognition Perpetual License",
             "qty": 1,
-            "unit_price": 32768
+            "unit_price": 32768.00
         }
     ],
     "terms": {
