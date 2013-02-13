@@ -4,11 +4,13 @@
 import argparse
 from envois import invoice
 import json
+import sys
 
-parser = argparse.ArgumentParser(description="Automated invoicing by Lambda Labs, Inc.")
-parser.add_argument('json', nargs='?', metavar='<json>',
-                    help="Enter the path of the input json file")
-args = parser.parse_args()
-if not args.json:
-   raise ValueError("No .json input file provided")
-print invoice.main(open(args.json, 'r'))
+if __name__ == '__main__':
+    try:
+        fin = open(sys.argv[1], 'r')
+    except:
+        fin = sys.stdin
+    print(invoice.main(fin))
+
+
