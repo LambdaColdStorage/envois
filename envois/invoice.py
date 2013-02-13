@@ -69,8 +69,7 @@ def make_invoice(json_object):
 
 def main(inp):
     json_object = json.loads(inp.read())
-    print(make_invoice(json_object))
-    return json_object
+    return make_invoice(json_object)
 
 if __name__ == "__main__": 
     main(sys.stdin)
