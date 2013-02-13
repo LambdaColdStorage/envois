@@ -44,5 +44,6 @@ class Currency(Contextable):
         return Currency(self.amt / other, self.currency)
 
     def __str__(self):
-        amt_str = locale.format("%.2f", self.amt, grouping=True, monetary=True)
-        return "%s%s %s" % (SYMBOL[self.currency], amt_str, self.currency)
+        return "%s%s %s" % (SYMBOL[self.currency],
+                            "{0:.2f}".format(self.amt),
+                            self.currency)
