@@ -7,6 +7,7 @@
 """
 
 from distutils.core import setup
+import os
 
 setup(
     name='envois',
@@ -29,5 +30,5 @@ setup(
         'jinja2',
     ],
     description="Automated invoicing by Lambda Labs, Inc.",
-    long_description=open('README.md').read(),
+    long_description=open(os.path.join(os.path.dirname(__file__), 'README.md')).read(),
 )
