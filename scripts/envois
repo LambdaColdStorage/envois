@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
-import argparse
-from envois import invoice
 import json
+import os
 import sys
+sys.path.append('../envois')
+from envois import invoice
 
 if __name__ == '__main__':
     try:
@@ -12,5 +13,3 @@ if __name__ == '__main__':
     except:
         fin = sys.stdin
     print(invoice.main(fin))
-
-
