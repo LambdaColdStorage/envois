@@ -14,7 +14,8 @@
             "number": "...",
             "name": "Lambda Labs Inc.",
             "same_address": true
-        }
+        },
+        "logo": "http://lambdal.com/images/lambda-labs-logo.png"
     },
     "buyer": {
         "name": "Foo Corp",
@@ -23,8 +24,7 @@
             "city": "Fooville",
             "state": "BA",
             "zip": "31337"
-        },
-        "logo": "http://lambdal.com/images/lambda-labs-logo.png"
+        }
     },
     "items": [
         {
