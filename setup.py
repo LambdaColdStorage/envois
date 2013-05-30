@@ -12,7 +12,7 @@ import os
 setup(
     name='envois',
     version='0.0.2',
-    url='http://github.com/lambdal/lambdavoice',
+    url='http://github.com/lambdal/envois',
     author='Stephen Balaban',
     author_email='stephen@stephenbalaban.com',
     packages=[
@@ -20,8 +20,7 @@ setup(
         'test',
         ],
     data_files = [
-        ('templates', ['invoice.html']),
-        ('css', ['invoice.css'])
+        ('templates', ['invoice.html'])
         ],
     platforms='any',
     scripts=['scripts/envois'],
