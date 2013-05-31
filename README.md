@@ -16,6 +16,20 @@ config object be redirected into the script.
 Open the resulting HTML in a browser, save it as a PDF, give it to the people
 who owe you money.
 
+For more options on how to use envois:
+
+```bash
+usage: envois [-h] [-f INPUT_FILE] [-l] [-o OUTPUT_FILE]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -f INPUT_FILE, --file INPUT_FILE
+                        the json file used to generate invoice
+  -l, --latex           use latex template to render invoice, default is to
+                        use html
+  -o OUTPUT_FILE        output file name, default is printing to stdout
+```
+
 ### Example invoice file
 
 ```json
@@ -70,3 +84,7 @@ who owe you money.
 - Invoice number
 - Description and qty of goods
 - Terms: NET X DAYS "INTEREST CHARGE ASSESSED ON BALANCES OVER X DAYS"
+
+## LaTeX rendering options
+
+Note: LaTeX invoice template taken from [www.latextemplates.com]
