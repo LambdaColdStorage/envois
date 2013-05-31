@@ -67,9 +67,12 @@ def make_invoice(json_object):
     invoice = Invoice(buyer, seller, items, terms, **json_object)
     return invoice.html()
 
-def main(inp):
+def main(inp, latex, outp):
     json_object = json.loads(inp.read())
-    return make_invoice(json_object)
+    if latex==False and outp=='none':
+        print(make_invoice(json_object))
+    else:
+        print("wrote %s" % outp)
 
 if __name__ == "__main__": 
     main(sys.stdin)
