@@ -87,13 +87,24 @@ def main(inp, latex, outp):
         print(make_invoice(json_object))
     else:
         with open(outp, 'w') as output_file:
+            #adding latex macro defs to beginnig of .tex file if 
+            #user selected latex option
+            #this is necessary because jinja syntax and latex macro syntax
+            #don't play well together
+
+            #TODO for now, to generate latex, we'll need to be in the top-level
+            #dir to have the open statment below find def.tex (give template
+            #inheritance another chance??) using sys.argv[0]....? are we sure
+            #this script will remain in scripts/  ?
             if latex:
                 with open('templates/def.tex', 'r') as tex_defs:
                     defs_content = tex_defs.read()
                     output_file.write(defs_content)
             output_file.write(make_invoice(json_object, latex=latex))
         print("wrote %s" % outp)
-    
+
+    #TODO remove all the .aux, .log, etc. files that are generated as a
+    #result of running pdflatex.
     if latex:
         #create .pdf from .tex source generated
         try:
