@@ -44,6 +44,14 @@ class Invoice(Contextable):
         html = temp.render(self.context())
         return html
 
+    def latex(self):
+        """
+        self -> LaTeX
+        """
+        temp = tenv.get_template('invoice.tex')
+        tex = temp.render(self.context())
+        return tex
+
     def context(self):
         """
         self -> { variables to be included in template }
@@ -59,22 +67,35 @@ class Invoice(Contextable):
 def merge_dict(*dicts):
     return dict(sum([d.items() for d in dicts], []))
 
-def make_invoice(json_object):    
+def make_invoice(json_object, latex=False):    
     buyer, seller = [Company(party, **json_object.pop(party)) \
                          for party in ['buyer', 'seller']]    
     terms = Terms(**json_object.pop('terms'))
     items = ItemCollection(json_object.pop('items'))
     invoice = Invoice(buyer, seller, items, terms, **json_object)
-    return invoice.html()
+
+    if latex:
+        return invoice.latex()
+    else:
+        return invoice.html()
 
 def main(inp, latex, outp):
     json_object = json.loads(inp.read())
-    if latex==False and outp=='none':
+
+    if not latex and outp is None:
         print(make_invoice(json_object))
     else:
         with open(outp, 'w') as output_file:
-            output_file.write(make_invoice(json_object))
+            output_file.write(make_invoice(json_object, latex=latex))
         print("wrote %s" % outp)
+    
+    if latex:
+        #create .pdf from .tex source generated
+        try:
+            subprocess.call(["pdflatex", outp]) 
+        except:
+            print("error generating pdf from latex source file \
+                  %s" % outp)
 
 if __name__ == "__main__": 
     main(sys.stdin)
