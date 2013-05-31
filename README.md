@@ -3,14 +3,23 @@ envois
 
 Automated invoicing by Lambda Labs, Inc.
 
+## Requirements
+- jinja2
+- pdflatex (if generating pdfs from latex template)
+
 ## Example 
 
 Currently the envois script and example json file exist in the
-scripts directory. The envois scripts requires that the json
-config object be redirected into the script.
+scripts directory. 
 
 ```bash
 ./scripts/envois <scripts/test.json 
+```
+
+or
+
+```bash
+./scripts/envois -f scripts/test.json 
 ```
 
 Open the resulting HTML in a browser, save it as a PDF, give it to the people

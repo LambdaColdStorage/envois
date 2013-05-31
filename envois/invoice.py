@@ -72,6 +72,8 @@ def main(inp, latex, outp):
     if latex==False and outp=='none':
         print(make_invoice(json_object))
     else:
+        with open(outp, 'w') as output_file:
+            output_file.write(make_invoice(json_object))
         print("wrote %s" % outp)
 
 if __name__ == "__main__": 

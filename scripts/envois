@@ -22,15 +22,23 @@ if __name__ == '__main__':
     
     args = parser.parse_args()
 
-    #TODO handle file inteligently based on working dir
     #selecting input source
     if args.file!=None:
         try:
-            fin = open(args.file, 'r')
+            fpath = os.path.abspath(args.file)
+            fin = open(fpath, 'r')
         except:
             print('unable to open specified file %s' % args.file)
             sys.exit()
     else:
         fin = sys.stdin
-        
-    invoice.main(inp=fin, latex=args.latex, outp=args.o)
+   
+    #making sure there is a output file name specified if latex option
+    #is used
+    if args.latex==True and args.o=='none':
+        outp = 'invoice.pdf'    
+    else:
+        outp = args.o
+
+    #generate invoice
+    invoice.main(inp=fin, latex=args.latex, outp=outp)
