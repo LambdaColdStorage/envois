@@ -4,12 +4,40 @@
 import json
 import os
 import sys
+import argparse
 sys.path.append('../envois')
 from envois import invoice
 
 if __name__ == '__main__':
-    try:
-        fin = open(sys.argv[1], 'r')
-    except:
+
+    #set up argument parsing
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-f", "--file", metavar="INPUT_FILE", type=str,
+                        help="the json file used to generate invoice")
+    parser.add_argument("-l", "--latex", action='store_true', default=False,
+                        help="use latex template to render invoice, \
+                        default is to use html")
+    parser.add_argument("-o", metavar="OUTPUT_FILE", 
+                        help="output file name, default is printing to stdout")
+    args = parser.parse_args()
+
+    #selecting input source
+    if args.file is not None:
+        try:
+            fpath = os.path.abspath(args.file)
+            fin = open(fpath, 'r')
+        except IOError:
+            print('unable to open specified file %s' % args.file)
+            sys.exit()
+    else:
         fin = sys.stdin
-    print(invoice.main(fin))
+   
+    #making sure there is a output file name specified if latex option
+    #is used
+    if args.latex and args.o is None:
+        outp = 'envoice.tex'    
+    else:
+        outp = args.o
+
+    #generate invoice
+    invoice.main(inp=fin, latex=args.latex, outp=outp)

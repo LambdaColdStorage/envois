@@ -29,4 +29,6 @@ pip-log.txt
 input/lambda_bluehive_2012-10-09.json
 *.sw[a-z]
 output/lbh.html
-MANIFEST
+MANIFEST.pdf
+.log
+.aux
