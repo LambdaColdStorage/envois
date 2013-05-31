@@ -87,6 +87,10 @@ def main(inp, latex, outp):
         print(make_invoice(json_object))
     else:
         with open(outp, 'w') as output_file:
+            if latex:
+                with open('templates/def.tex', 'r') as tex_defs:
+                    defs_content = tex_defs.read()
+                    output_file.write(defs_content)
             output_file.write(make_invoice(json_object, latex=latex))
         print("wrote %s" % outp)
     
@@ -94,6 +98,8 @@ def main(inp, latex, outp):
         #create .pdf from .tex source generated
         try:
             subprocess.call(["pdflatex", outp]) 
+        except OSError:
+            print("you may not have pdflatex installed")
         except:
             print("error generating pdf from latex source file \
                   %s" % outp)

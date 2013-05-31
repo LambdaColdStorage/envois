@@ -26,7 +26,7 @@ if __name__ == '__main__':
         try:
             fpath = os.path.abspath(args.file)
             fin = open(fpath, 'r')
-        except:
+        except IOError:
             print('unable to open specified file %s' % args.file)
             sys.exit()
     else:
