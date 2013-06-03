@@ -1,0 +1,81 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Invoice Template
+% LaTeX Template
+% Version 1.0 (3/11/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Trey Hunner (http://www.treyhunner.com/)
+%
+% Modified by:
+% Lambda Labs
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+% Important note:
+% This template requires the invoice.cls file to be in the same directory as 
+% the .tex file. The invoice.cls file provides the style used for structuring the
+% document.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT CONFIGURATION
+%----------------------------------------------------------------------------------------
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+%	HEADING SECTION
+%----------------------------------------------------------------------------------------
+
+\hfil{\Huge\bf {{ seller.name}} }\hfil % Company providing the invoice
+\bigskip\break % Whitespace
+\hrule % Horizontal line
+
+123 Broadway \hfill (000) 111-1111 \\ % Your address and contact information
+City, State 12345 \hfill john@smith.com
+\\ \\
+{\bf Invoice To:} \\
+\tab {{ buyer.name }} \\ % Invoice recipient
+\tab {{ buyer.address }} \\ % Recipient's company
+
+{\bf Date:} \\
+\tab \today \\ % Invoice date
+
+%----------------------------------------------------------------------------------------
+%	TABLE OF EXPENSES
+%----------------------------------------------------------------------------------------
+
+\begin{invoiceTable}
+
+\feetype{Consulting Services} % Fee category description
+
+\hourrow{October 3, 2012}{8}{12} % Each separate billing day includes the date, the number of hours and the hourly rate
+\hourrow{October 4, 2012}{6.5}{12}
+\hourrow{October 5, 2012}{5.25}{12}
+\hourrow{October 10, 2012}{9.75}{20}
+\hourrow{October 11, 2012}{5}{12.51}
+
+%------------------------------------------------
+
+\feetype{Accounting Services} % Fee category description
+
+\hourrow{October 10, 2012}{2}{80}
+\hourrow{October 11, 2012}{1}{80}
+
+\subtotal % Prints a subtotal, can be used multiple times
+
+%------------------------------------------------
+
+\feetype{Hosting Expenses} % Fee category description
+
+\feerow{Web Hosting: October, 2012}{60} % A flat fee service, note there is no hourly rate for this
+
+\end{invoiceTable}
+
+%----------------------------------------------------------------------------------------
+
+\end{document}
