@@ -5,36 +5,46 @@
             "street": "857 Clay St. Suite 206",
             "city": "San Francisco",
             "state": "CA",
-            "zip": "94108",
-        "email": "some@email.com",
-        "phone": "(555) 555-5555"
+            "zipcode": "94108",
+            "email": "enterprise@lambdal.com",
+            "phone": "(555) 555-5555"
         },
         "account": {
+            "bank": "...",
             "swift": "...",
             "number": "...",
             "name": "Lambda Labs Inc.",
-            "same_address": true
+            "same_address": false,
+            "address": {
+                "street": "...",
+                "city": "...",
+                "state": "...",
+                "zipcode": "..."
+            }
         },
         "logo": "http://lambdal.com/images/lambda-labs-logo.png"
     },
     "buyer": {
-        "name": "Foo Corp",
+        "name": "...",
         "address": {
-            "street": "88 Foo Road, Foo Place",
-            "city": "Fooville",
-            "state": "BA",
-            "zip": "31337"
+            "street": "...",
+            "city": "...",
+            "state": "...",
+            "zipcode": "..."
         }
     },
     "items": [
         {
             "description": "Facial Detection & Landmark Recognition Perpetual License",
             "qty": 1,
-            "unit_price": 32768.00
+            "unit_price": 65536.00
         }
     ],
     "terms": {
-        "days": 30,
-        "string": ""
-    }
+        "days": 0,
+        "string": "Due upon receipt."
+    },
+    "date_of_purchase": "2013-07-01",
+    "purchase_order_no": "0000-000-0000",
+    "job_no": "..."
 }
