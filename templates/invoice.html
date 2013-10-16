@@ -134,8 +134,10 @@
     </table>
     <div class="align-center">TERMS: {{ terms.string }}</div>
     <div class="remittance-info">
-        <strong>PLEASE REMIT PAYMENT BY WIRE TRANSFER TO:</strong>
-        {{ seller.account }}
+	    {% if seller.account.swift %}
+		<strong>PLEASE REMIT PAYMENT BY WIRE TRANSFER TO:</strong>
+		{{ seller.account }}
+	    {% endif %}
         <p>For any payment questions, call {{ seller.address.phone }} or email <a href="mailto:{{ seller.address.email }}">{{ seller.address.email }}</a>.</p>
     </div>
 </body>
