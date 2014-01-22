@@ -4,7 +4,13 @@
 from contextable import Contextable
 from numbers import Number
 import locale
-#locale.setlocale(locale.LC_ALL, 'en_US')
+try:
+    locale.setlocale(locale.LC_ALL, 'en_US.utf8')
+except:
+    try:
+        locale.setlocale(locale.LC_ALL, 'en_US')
+    except:
+        locale.setlocale(locale.LC_ALL, 'POSIX')
 
 SYMBOL = {
     'USD': "$"
@@ -45,5 +51,5 @@ class Currency(Contextable):
 
     def __str__(self):
         return "%s%s %s" % (SYMBOL[self.currency],
-                            "{0:.2f}".format(self.amt),
+                            locale.format("%d", self.amt, grouping=True),
                             self.currency)

@@ -134,7 +134,7 @@
     </table>
     <div class="align-center">TERMS: {{ terms.string }}</div>
     <div class="remittance-info">
-	    {% if seller.account.swift %}
+	    {% if seller.account.number %}
 		<strong>PLEASE REMIT PAYMENT BY WIRE TRANSFER TO:</strong>
 		{{ seller.account }}
 	    {% endif %}

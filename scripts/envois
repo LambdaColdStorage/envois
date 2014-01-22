@@ -12,7 +12,7 @@ if __name__ == '__main__':
 
     #set up argument parsing
     parser = argparse.ArgumentParser()
-    parser.add_argument("-f", "--file", metavar="INPUT_FILE", type=str,
+    parser.add_argument("-i", "--input_file", metavar="INPUT_FILE", type=str,
                         help="the json file used to generate invoice")
     parser.add_argument("-l", "--latex", action='store_true', default=False,
                         help="use latex template to render invoice, \
@@ -22,12 +22,12 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     #selecting input source
-    if args.file is not None:
+    if args.input_file is not None:
         try:
-            fpath = os.path.abspath(args.file)
+            fpath = os.path.abspath(args.input_file)
             fin = open(fpath, 'r')
         except IOError:
-            print('unable to open specified file %s' % args.file)
+            print('unable to open specified file %s' % args.input_file)
             sys.exit()
     else:
         fin = sys.stdin
