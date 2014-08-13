@@ -2,40 +2,40 @@
     "seller": {
         "name": "Lambda Labs, Inc.",
         "address": {
-            "street": "857 Clay St. Suite 206",
+            "street": "888 Lambda St. Suite 777",
             "city": "San Francisco",
             "state": "CA",
-            "zipcode": "94108",
+            "zipcode": "91337",
             "email": "enterprise@lambdal.com",
             "phone": "(555) 555-5555"
         },
         "account": {
-            "bank": "...",
-            "swift": "...",
-            "number": "...",
-            "name": "Lambda Labs Inc.",
+            "bank": "FOO BAR BANK",
+            "swift": "FOOBARBAXQUUX",
+            "number": "12345678",
+            "name": "Acme Labs, Inc.",
             "same_address": false,
             "address": {
-                "street": "...",
-                "city": "...",
-                "state": "...",
-                "zipcode": "..."
+                "street": "123 Bank Blvd.",
+                "city": "New York",
+                "state": "NY",
+                "zipcode": "91111"
             }
         },
         "logo": "http://lambdal.com/images/lambda-labs-logo.png"
     },
     "buyer": {
-        "name": "...",
+        "name": "Yoyodyne Propulsion Systems",
         "address": {
-            "street": "...",
-            "city": "...",
-            "state": "...",
-            "zipcode": "..."
+            "street": "51 Franklin St, Fifth Floor",
+            "city": "Boston",
+            "state": "MA",
+            "zipcode": "02110"
         }
     },
     "items": [
         {
-            "description": "Facial Detection & Landmark Recognition Perpetual License",
+            "description": "Engineering Services",
             "qty": 1,
             "unit_price": 65536.00
         }

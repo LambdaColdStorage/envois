@@ -7,6 +7,12 @@ Automated invoicing by Lambda Labs, Inc.
 - jinja2
 - pdflatex (if generating pdfs from latex template)
 
+## Example Output
+
+Here's a screenshot of a PDF file created using envois.
+
+![An invoice created using envois.](images/results.jpg)
+
 ## Example 
 
 Currently the envois script and example json file exist in the
