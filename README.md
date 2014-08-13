@@ -13,13 +13,13 @@ Currently the envois script and example json file exist in the
 scripts directory. 
 
 ```bash
-./scripts/envois <scripts/test.json 
+./scripts/envois < scripts/test.json > output.html
 ```
 
 or
 
 ```bash
-./scripts/envois -f scripts/test.json 
+./scripts/envois -i scripts/test.json -o output.html
 ```
 
 Open the resulting HTML in a browser, save it as a PDF, give it to the people
@@ -28,7 +28,7 @@ who owe you money.
 For more options on how to use envois:
 
 ```bash
-usage: envois [-h] [-f INPUT_FILE] [-l] [-o OUTPUT_FILE]
+usage: envois [-h] [-i INPUT_FILE] [-l] [-o OUTPUT_FILE]
 
 optional arguments:
   -h, --help            show this help message and exit
