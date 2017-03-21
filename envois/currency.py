@@ -11,10 +11,6 @@ except:
     except:
         locale.setlocale(locale.LC_ALL, 'POSIX')
 
-SYMBOL = {
-    'USD': "$"
-}
-
 
 class Currency(Contextable):
     """
@@ -51,6 +47,4 @@ class Currency(Contextable):
         return Currency(self.amt / other, self.currency)
 
     def __str__(self):
-        return "%s%s %s" % (SYMBOL[self.currency],
-                            locale.format("%d", self.amt, grouping=True),
-                            self.currency)
+        return locale.currency(self.amt, grouping=True)

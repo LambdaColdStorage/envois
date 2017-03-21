@@ -49,9 +49,7 @@ class Invoice(Contextable):
         return html
 
     def template(self, dtype, ext='.html'):
-        return {DocumentTypes.INVOICE: 'invoice',
-                DocumentTypes.QUOTE: 'quote',
-                DocumentTypes.PACKING_SLIP: 'packing_slip'}[dtype] + ext
+        return {dt: dt for dt in DocumentTypes.valid_types()}[dtype] + ext
 
     def latex(self):
         """
