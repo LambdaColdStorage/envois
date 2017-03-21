@@ -103,13 +103,8 @@
     <img src="{{ buyer.logo }}" alt="{{ buyer.name }}" class="seller_logo" id="top-logo" />
     <h2 id="seller-title">{{ title }}</h2> 
     {{ buyer.address }}
-    <div class="client">
-        <p><strong>BILL TO:</strong></p>
-        <h2>{{ buyer.name }}</h2>
-        {{ buyer.address }}
-    </div>
     <dl class="purchase-info">
-        <dd>Date of Purchase:</dd>
+        <dd>Date of Purchase Order: </dd>
         <dt>{{ date_of_purchase or "..."  }}</dt>
     </dl>
     <table class="items">
