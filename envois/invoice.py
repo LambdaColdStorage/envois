@@ -4,10 +4,9 @@ import sys
 import json
 from contextable import Contextable
 from terms import Terms
-from item import Item, ItemCollection
+from item import ItemCollection
 from company import Company
-from account import Account
-from address import Address
+from constants import DocumentTypes
 import jinja2
 from hashlib import sha1
 import datetime
@@ -15,10 +14,14 @@ import subprocess
 import os
 
 path = '/'.join(os.path.abspath(__file__).split('/')[:-2])
-tenv = jinja2.Environment(loader=jinja2.FileSystemLoader([path + '/templates']))
+tenv = (jinja2.Environment(loader=jinja2.FileSystemLoader([
+        path + '/templates'])))
+
 
 def generate_id(n1, n2, LIMIT=10):
-    return sha1('$'.join([n1, n2, str(datetime.datetime.utcnow())])).hexdigest().upper()[:LIMIT]
+    return (sha1('$'.join([n1, n2, str(datetime.datetime.utcnow())]))
+            .hexdigest().upper()[:LIMIT])
+
 
 class Invoice(Contextable):
     def __init__(self, buyer, seller, items, terms, **kwargs):
@@ -35,15 +38,20 @@ class Invoice(Contextable):
         self.job_no = kwargs.get('job_no', '')
 
     def __repr__(self):
-        return "<Invoice: %s, %s>" % (repr(buyer), repr(seller))
+        return "<Invoice: {}, {}>".format(repr(self.buyer), repr(self.seller))
 
-    def html(self): 
+    def html(self, dtype=DocumentTypes.INVOICE):
         """
         self -> HTML
         """
-        temp = tenv.get_template('invoice.html')
+        temp = tenv.get_template(self.template(dtype=dtype))
         html = temp.render(self.context())
         return html
+
+    def template(self, dtype, ext='.html'):
+        return {DocumentTypes.INVOICE: 'invoice',
+                DocumentTypes.QUOTE: 'quote',
+                DocumentTypes.PACKING_SLIP: 'packing_slip'}[dtype] + ext
 
     def latex(self):
         """
@@ -57,7 +65,9 @@ class Invoice(Contextable):
         """
         self -> { variables to be included in template }
         """
-        c = merge_dict(self.buyer.context(), self.seller.context(), self.items.context(), self.terms.context())
+        # Note the __add__ method on Contextable.
+        c = dict(self.buyer.kvl() + self.seller.kvl() + self.items.kvl()
+                 + self.terms.kvl())
         c['invoice_id'] = self.invoice_id
         c['title'] = self.seller.name
         c['date_of_purchase'] = self.date_of_purchase
@@ -65,12 +75,11 @@ class Invoice(Contextable):
         c['job_no'] = self.job_no
         return c
 
-def merge_dict(*dicts):
-    return dict(sum([d.items() for d in dicts], []))
 
-def make_invoice(json_object, latex=False):    
-    buyer, seller = [Company(party, **json_object.pop(party)) \
-                         for party in ['buyer', 'seller']]    
+def make_invoice(json_object, latex=False,
+                 dtype=DocumentTypes.INVOICE):
+    buyer, seller = [Company(party, **json_object.pop(party))
+                     for party in ['buyer', 'seller']]
     terms = Terms(**json_object.pop('terms'))
     items = ItemCollection(json_object.pop('items'))
     invoice = Invoice(buyer, seller, items, terms, **json_object)
@@ -78,42 +87,45 @@ def make_invoice(json_object, latex=False):
     if latex:
         return invoice.latex()
     else:
-        return invoice.html()
+        return invoice.html(dtype=dtype)
 
-def main(inp, latex, outp):
+
+def main(inp, latex, outp, dtype=DocumentTypes.INVOICE):
     json_object = json.loads(inp.read())
+    assert(DocumentTypes.validate(dtype))
 
     if not latex and outp is None:
-        print(make_invoice(json_object))
+        print(make_invoice(json_object, dtype=dtype))
     else:
         with open(outp, 'w') as output_file:
-            #adding latex macro defs to beginnig of .tex file if 
-            #user selected latex option
-            #this is necessary because jinja syntax and latex macro syntax
-            #don't play well together
+            # adding latex macro defs to beginnig of .tex file if
+            # user selected latex option
+            # this is necessary because jinja syntax and latex macro syntax
+            # don't play well together
 
-            #TODO for now, to generate latex, we'll need to be in the top-level
-            #dir to have the open statment below find def.tex (give template
-            #inheritance another chance??) using sys.argv[0]....? are we sure
-            #this script will remain in scripts/  ?
+            # TODO for now, to generate latex, we'll need to be in the
+            # top-level dir to have the open statment below find def.tex (give
+            # template inheritance another chance??) using sys.argv[0]....? are
+            # we sure this script will remain in scripts/  ?
             if latex:
                 with open('templates/def.tex', 'r') as tex_defs:
                     defs_content = tex_defs.read()
                     output_file.write(defs_content)
-            output_file.write(make_invoice(json_object, latex=latex))
+            output_file.write(make_invoice(json_object, latex=latex,
+                              dtype=dtype))
         print("wrote %s" % outp)
 
-    #TODO remove all the .aux, .log, etc. files that are generated as a
-    #result of running pdflatex.
+    # TODO remove all the .aux, .log, etc. files that are generated as a
+    # result of running pdflatex.
     if latex:
-        #create .pdf from .tex source generated
+        # create .pdf from .tex source generated
         try:
-            subprocess.call(["pdflatex", outp]) 
+            subprocess.call(["pdflatex", outp])
         except OSError:
             print("you may not have pdflatex installed")
         except:
             print("error generating pdf from latex source file \
                   %s" % outp)
 
-if __name__ == "__main__": 
+if __name__ == "__main__":
     main(sys.stdin)

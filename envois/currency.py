@@ -1,4 +1,3 @@
-
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from contextable import Contextable
@@ -16,11 +15,13 @@ SYMBOL = {
     'USD': "$"
 }
 
+
 class Currency(Contextable):
     """
     An address in the invoice
     """
     supported = ['USD']
+
     def __init__(self, amt, currency):
         self.amt = amt
         assert(currency.upper() in Currency.supported)

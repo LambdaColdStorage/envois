@@ -7,6 +7,7 @@ import sys
 import argparse
 sys.path.append('../envois')
 from envois import invoice
+from envois.constants import DocumentTypes
 
 if __name__ == '__main__':
 
@@ -17,6 +18,10 @@ if __name__ == '__main__':
     parser.add_argument("-l", "--latex", action='store_true', default=False,
                         help="use latex template to render invoice, \
                         default is to use html")
+    parser.add_argument("-t", "--type", dest='dtype',
+                        default='invoice',
+                        help="Choose between different output types.",
+                        choices=list(DocumentTypes.valid_types()))
     parser.add_argument("-o", metavar="OUTPUT_FILE", 
                         help="output file name, default is printing to stdout")
     args = parser.parse_args()
@@ -40,4 +45,4 @@ if __name__ == '__main__':
         outp = args.o
 
     #generate invoice
-    invoice.main(inp=fin, latex=args.latex, outp=outp)
+    invoice.main(inp=fin, latex=args.latex, outp=outp, dtype=args.dtype)
