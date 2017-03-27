@@ -24,7 +24,7 @@ def generate_id(n1, n2, LIMIT=10):
 
 
 class Invoice(Contextable):
-    def __init__(self, buyer, seller, items, terms, **kwargs):
+    def __init__(self, buyer, seller, items, terms, dtype, **kwargs):
         assert(isinstance(buyer, Company))
         assert(isinstance(seller, Company))
         assert(isinstance(terms, Terms))
@@ -32,6 +32,7 @@ class Invoice(Contextable):
         self.seller = seller
         self.items = items
         self.terms = terms
+        self.dtype = dtype
         self.invoice_id = generate_id(self.buyer.name, self.seller.name)
         self.date_of_purchase = kwargs.get('date_of_purchase', '')
         self.purchase_order_no = kwargs.get('purchase_order_no', '')
@@ -68,6 +69,10 @@ class Invoice(Contextable):
                  + self.terms.kvl())
         c['invoice_id'] = self.invoice_id
         c['title'] = self.seller.name
+        c['title_html'] = ('{}-{}_{}'.format(self.seller.name.split(' ')[0],
+                                             self.buyer.name.split(' ')[0],
+                                             self.dtype)
+                                     .lower())
         c['date_of_purchase'] = self.date_of_purchase
         c['purchase_order_no'] = self.purchase_order_no
         c['job_no'] = self.job_no
@@ -80,7 +85,7 @@ def make_invoice(json_object, latex=False,
                      for party in ['buyer', 'seller']]
     terms = Terms(**json_object.pop('terms'))
     items = ItemCollection(json_object.pop('items'))
-    invoice = Invoice(buyer, seller, items, terms, **json_object)
+    invoice = Invoice(buyer, seller, items, terms, dtype=dtype, **json_object)
 
     if latex:
         return invoice.latex()
