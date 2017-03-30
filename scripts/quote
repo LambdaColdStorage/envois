@@ -1,0 +1,5 @@
+#!/bin/bash
+DIR=`dirname $0`
+JSON_IN=$1
+OUTFILE=$(basename ${JSON_IN}).html
+${DIR}/envois -i $JSON_IN -o ${OUTFILE} --type $(basename ${0}) && open -a "Google Chrome" ${OUTFILE}
