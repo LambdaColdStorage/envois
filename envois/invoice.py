@@ -18,7 +18,7 @@ tenv = (jinja2.Environment(loader=jinja2.FileSystemLoader([
         path + '/templates'])))
 
 
-def generate_id(n1, n2, LIMIT=10):
+def generate_id(n1, n2, LIMIT=5):
     return (sha1('$'.join([n1, n2, str(datetime.datetime.utcnow())]))
             .hexdigest().upper()[:LIMIT])
 
@@ -116,7 +116,6 @@ def main(inp, latex, outp, dtype=DocumentTypes.INVOICE):
                     output_file.write(defs_content)
             output_file.write(make_invoice(json_object, latex=latex,
                               dtype=dtype))
-        print("wrote %s" % outp)
 
     # TODO remove all the .aux, .log, etc. files that are generated as a
     # result of running pdflatex.
