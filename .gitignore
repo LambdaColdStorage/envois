@@ -32,3 +32,4 @@ output/lbh.html
 MANIFEST.pdf
 .log
 .aux
+.DS_Store
