@@ -31,15 +31,9 @@
 	 margin: 0;
 	 float: right;
      }
-     .purchase-info dd {
-	 float: left;
-	 margin-left: 0;
-	 font-weight: bold;
-     }
-     .purchase-info dt {
-	 display: block;
-	 margin-left: 200px;
-     }
+    dl { width: 100%; overflow: hidden; padding: 0; margin: 0 }
+    dt { float: left; width: 80%; /* adjust the width; make sure the total of both is 100% */ padding: 0; margin: 0 }
+    dd { font-weight: bold; float: left; width: 20%; /* adjust the width; make sure the total of both is 100% */ padding: 0; margin: 0 }
      .account .address {
 	 margin-top: 0;
      }
@@ -62,8 +56,12 @@
 	 margin: 1em 0;
      }
 
+     table.items tr:nth-child(even) {
+	 background-color: #EEE;
+     }
+
      table.items th, table.items td {
-	 padding: 1em 0 1em 0;
+	 padding: 0.25em 0 0.25em 0;
      }
 
      .font-bold {

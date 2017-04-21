@@ -3,4 +3,4 @@ DIR=`dirname $0`
 JSON_IN=$1
 OUTFILE_HTML=$(basename ${JSON_IN} '.json').html
 OUTFILE_PDF=$(basename ${JSON_IN} '.json').pdf
-${DIR}/envois -i $JSON_IN -o ${OUTFILE_HTML} --type $(basename ${0}) && wkhtmltopdf --orientation Landscape --page-size Letter --zoom 24 ${OUTFILE_HTML} ${OUTFILE_PDF} && rm ${OUTFILE_HTML} && open ${OUTFILE_PDF}
+${DIR}/envois -i $JSON_IN -o ${OUTFILE_HTML} --type $(basename ${0}) && wkhtmltopdf --orientation Landscape --page-size Letter --zoom 24 ${OUTFILE_HTML} ${OUTFILE_PDF} && open ${OUTFILE_PDF}

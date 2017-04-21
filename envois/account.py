@@ -7,7 +7,7 @@ class Account(Contextable):
     """
     A bank account in the invoice
     """
-    def __init__(self, bank='', name='', number='', routing='', swift='', address='', **kwargs):
+    def __init__(self, bank='', name='', number='', routing='', swift='&nbsp;', address='', **kwargs):
         self.bank = bank
         self.name = name
         self.number = number
