@@ -11,7 +11,7 @@ class Item(Contextable):
     An address in the invoice
     """
     attribute_keys = ['description', 'qty', 'unit_price', 'total_price']
-    def __init__(self, description, qty, unit_price, currency="USD"):
+    def __init__(self, description, qty, unit_price, currency="USD", **kwargs):
         self.description = description
         self.qty = qty
         self.unit_price = Currency(unit_price, currency)
