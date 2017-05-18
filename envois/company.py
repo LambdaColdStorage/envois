@@ -10,8 +10,8 @@ class Company(Contextable):
     """
     def __init__(self, role, name, logo='', address=None, account=None):
         # Don't use mutable objects as default parameters in python.
-        address = address if address is None else {}
-        account = account if account is None else {}
+        address = address if address is not None else {}
+        account = account if account is not None else {}
 
         self.role = role # seller or buyer
         self.name = name
