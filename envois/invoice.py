@@ -19,7 +19,8 @@ tenv = (jinja2.Environment(loader=jinja2.FileSystemLoader([
 
 
 def generate_id(n1, n2, LIMIT=5):
-    return (sha1('$'.join([n1, n2, str(datetime.datetime.utcnow())]))
+    return (sha1('$'.join([n1, n2, str(datetime.datetime.utcnow())])
+                 .encode('utf-8'))
             .hexdigest().upper()[:LIMIT])
 
 
@@ -65,8 +66,10 @@ class Invoice(Contextable):
         self -> { variables to be included in template }
         """
         # Note the __add__ method on Contextable.
-        c = dict(self.buyer.kvl() + self.seller.kvl() + self.items.kvl()
-                 + self.terms.kvl())
+        c = dict(list(self.buyer.kvl())
+                 + list(self.seller.kvl())
+                 + list(self.items.kvl())
+                 + list(self.terms.kvl()))
         c['invoice_id'] = self.invoice_id
         c['title'] = self.seller.name
         c['title_html'] = ('{}-{}_{}'.format(self.seller.name.split(' ')[0],
