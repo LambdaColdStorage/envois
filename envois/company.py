@@ -8,7 +8,11 @@ class Company(Contextable):
     """
     A company in the invoice (both buyer and sellers are companies)
     """
-    def __init__(self, role, name, logo='', address={}, account={}):
+    def __init__(self, role, name, logo='', address=None, account=None):
+        # Don't use mutable objects as default parameters in python.
+        address = address if address is not None else {}
+        account = account if account is not None else {}
+
         self.role = role # seller or buyer
         self.name = name
         self.logo = logo
